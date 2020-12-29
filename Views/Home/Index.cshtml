@@ -1,0 +1,100 @@
+﻿@model MePostWebApp.Models.Poster
+@{
+    ViewBag.Title = "Calculation";
+}
+<div class="container">
+    <div class="col-md-12">
+        <form action="/Home/Index" method="post" class="col-md-offset-3 col-md-6" style="margin-top:50px;">
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Country">Country</label>
+                <div class="col-md-8" style="margin-bottom:30px;">
+                    <select class="form-control col-md-6" name="Country">
+                        @foreach (var item in ViewBag.Table)
+                        {
+                            if (Model.Country != null && Model.Country == item.Country)
+                            {
+                                <option value="@item.Country" selected>@item.Country</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country">@item.Country</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Type">Type</label>
+                <div class="col-md-8" style="margin-bottom:30px;">
+                    <select class="form-control col-md-6" name="Type">
+                        @if (Model.Type == null)
+                        {
+                            <option value="" disabled selected>Select type</option>
+                            <option value="Docs">Docs</option>
+                            <option value="Parcel">Parcel</option>
+                        }
+                        else if (Model.Type == "Docs")
+                        {
+                            <option value="Docs" selected>Docs</option>
+                            <option value="Parcel">Parcel</option>
+                        }
+                        else
+                        {
+                            <option value="Docs">Docs</option>
+                            <option value="Parcel" selected>Parcel</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Length">Length</label>
+                <div class="col-md-8" style="margin-bottom:30px;">
+                    <input type="text" name="Length" placeholder="XX.XX" class="form-control" step="0.001" value="@Model.Length" required/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Width">Width</label>
+                <div class="col-md-8" style="margin-bottom:30px;">
+                    <input type="text" name="Width" placeholder="XX.XX" class="form-control" step="0.001" value="@Model.Width" required/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Height">Height</label>
+                <div class="col-md-8" style="margin-bottom:30px;">
+                    <input type="text" name="Height" placeholder="XX.XX" class="form-control" step="0.001" value="@Model.Height" required/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Weight">Weight</label>
+                <div class="col-md-8" style="margin-bottom:30px;">
+                    <input type="text" name="Weight" placeholder="XX.XX" class="form-control" step="0.001" value="@Model.Weight" required/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-8 col-md-offset-4">
+                    <button class="btn btn-success" type="submit">Calculate</button>
+                </div>
+            </div>
+
+        </form>
+        @if (ViewBag.Result != null)
+        {
+            <div class="col-md-6 col-md-offset-3" style="margin-top:50px;">
+                <p class="text-success text-center jumbotron">Стоимость: @ViewBag.Result</p>
+            </div>
+        }
+        @if (ViewBag.Error != null)
+        {
+            <div class="col-md-6 col-md-offset-3" style="margin-top:50px;">
+                <p class="text-success text-center jumbotron">Ошибка: @ViewBag.Error</p>
+            </div>
+        }
+    </div>
+</div>
